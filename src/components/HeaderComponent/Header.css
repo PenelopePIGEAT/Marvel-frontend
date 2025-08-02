@@ -4,12 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 32px;
   height: 60px;
   border-bottom: 1px solid #222;
   background-color: #000;
 }
 
+/*logo et son hoover*/
 .marvel-logo {
   height: 60px;
 }
@@ -20,6 +21,7 @@
   opacity: 0.5;
 }
 
+/*la nav et son hover*/
 .nav {
   display: flex;
   align-items: center;
@@ -38,6 +40,7 @@
   text-shadow: 0 0 8px #00f6ff;
 }
 
+/*Jarvis et son hover*/
 .login-button {
   background: none;
   border: none;

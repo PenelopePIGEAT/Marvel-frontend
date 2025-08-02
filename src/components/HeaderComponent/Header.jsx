@@ -7,18 +7,25 @@ import Modal from "../ModalComponent/Modal.jsx";
 import GoodbyeModal from "../ModalComponent/GoodbyeModal.jsx";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const showSearchBar = ["/characters", "/comics"].includes(location.pathname);
+  const navigate = useNavigate(); //pour changer de page
+  const location = useLocation(); //pour savoir sur quelle route
 
+  // Affiche la barre de recherche seulement sur /characters et /comics mais à revenir dessus puisque finalement je fais une search par page
+  const showSearchBar = ["/characters", "/comics"].includes(location.pathname);
+  // Récupère la valeur "search" dans l'url
   const params = new URLSearchParams(location.search);
   const searchTerm = params.get("search") || "";
 
+  // State pour stocker l'utilisateur connecté (null si pas connecté)
   const [user, setUser] = useState(null);
+  // State pour ouvrir/fermer la modale de login/signup
   const [modalOpen, setModalOpen] = useState(false);
+  // State pour ouvrir/fermer la modale d’au revoir (déconnexion)
   const [goodbyeOpen, setGoodbyeOpen] = useState(false);
+  // State pour gérer l’effet hover sur le bouton Jarvis
   const [isHovering, setIsHovering] = useState(false);
 
+  //Clic sur  jarvis si connecté, ouvre modale déconnexion, sinon modale login/signup
   const handleJarvisClick = () => {
     if (user) {
       setGoodbyeOpen(true);
@@ -27,11 +34,13 @@ const Header = () => {
     }
   };
 
+  // Ferme la modale d’au revoir et déconnecte l’utilisateur
   const handleGoodbyeClose = () => {
     setGoodbyeOpen(false);
     setUser(null);
   };
 
+  // Met à jour la query "search" dans l’URL pour la recherche
   const handleSearchChange = (value) => {
     const params = new URLSearchParams(location.search);
     params.set("search", value);
@@ -47,7 +56,7 @@ const Header = () => {
       <nav className="nav">
         <Link to="/characters">Personnages</Link>
         <Link to="/comics">Comics</Link>
-        {user && <Link to="/favourites">Favoris</Link>}
+        {user && <Link to="/favorites">Favoris</Link>}
 
         <button
           className={`login-button ${user ? "logged-in" : "logged-out"}`}

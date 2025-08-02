@@ -13,6 +13,7 @@ import CharacterInComics from "./pages/PageCharacterInComics/CharacterInComics";
 import Comics from "./pages/PageComics/Comics";
 import CharacterDetail from "./pages/PageCharacterDetails/Characterdetails";
 import ComicDetail from "./pages/PageComicDetails/ComicDetails";
+import Favorites from "./pages/PageFavorite/Favorite";
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,6 +39,7 @@ function App() {
             <Route path="/character/:id" element={<CharacterDetail />} />
             <Route path="/comics" element={<Comics />} />
             <Route path="/comic/:id" element={<ComicDetail />} />
+            <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </main>
         <Footer />

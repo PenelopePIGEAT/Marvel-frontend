@@ -1,20 +1,23 @@
+/* Conteneur principal de la carte  */
 .card-div {
   background-color: #111;
-  padding: 1rem;
+  padding: 16px;
   border-radius: 12px;
   color: white;
-  box-shadow: 0 0 10px #e62429;
+  box-shadow: 0 0 10px #e62429; /* ombre rouge floue autour */
   margin: 20px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease; /* transition pour hover */
   width: 340px;
   height: 360px;
-  position: relative;
+  position: relative; /* pour positionner bouton comics absolu */
 }
 
+/* Curseur au survol */
 .card-div:hover {
   cursor: pointer;
 }
 
+/* Nom du perso */
 .card-name {
   margin-top: 6px;
   font-weight: bold;
@@ -23,6 +26,7 @@
   color: #e62429;
 }
 
+/* Image  */
 .card-img {
   margin-top: 10px;
   width: 100%;
@@ -30,28 +34,32 @@
   object-fit: cover;
 }
 
+/* Description justifié, limité à une ligne avec "ellipsis" caché grâce à webkit */
 .card-description {
   font-size: 12px;
   color: #ccc;
   text-align: justify;
   margin-top: 4px;
 
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  display: -webkit-box; /* conteneur flex pour clamp */
+  -webkit-line-clamp: 1; /* limite à 1 ligne, ça fonctionne malgré le vague*/
+  -webkit-box-orient: vertical; /* orientation verticale */
+  overflow: hidden; /* cache le texte dépassant */
 }
 
+/* Classe cliquable */
 .clickable {
   cursor: pointer;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
+/* Classe cliquable au hover */
 .clickable:hover {
   color: #e62429;
-  transform: scale(1.01);
+  transform: scale(1.01); /* zoom très léger */
 }
 
+/* Bouton Comicsgraphie*/
 .comics-button {
   position: absolute;
   bottom: 25px;
@@ -64,6 +72,7 @@
   cursor: pointer;
 }
 
+/* Comiscgraphie hover */
 .comics-button:hover {
   background-color: #7d3134;
   cursor: pointer;

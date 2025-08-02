@@ -1,4 +1,5 @@
-.character-detail-container {
+/* Container principal */
+.characterdetail-container {
   background-color: #0d0d0d;
   color: #ffffff;
   padding: 48px 60px;
@@ -7,62 +8,74 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.character-name {
+/* Titre du personnage */
+.characterdetail-name {
   font-size: 42px;
   color: #e62429;
-  margin-bottom: 32px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-align: left;
-  border-left: 5px solid #e62429;
+  margin-bottom: 0 auto 32px;
+  text-transform: uppercase; /*minuscules*/
+  text-align: center;
   padding-left: 16px;
 }
 
-.character-detail-content {
+/* Wrapper image + description, affichage en flex row */
+.characterdetail-wrapper {
   display: flex;
   flex-direction: row;
   gap: 40px;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
-.character-image-wrapper {
-  flex: 0 0 340px;
+/* Conteneur image + description =? wrapper à vérifier */
+.characterdetail-imgetdesc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-.character-img {
+/* Image du personnage */
+.characterdetail-img {
+  margin-top: 20px;
   width: 100%;
   max-width: 340px;
   height: auto;
   object-fit: cover;
   border: none;
-  outline: 3px solid #e62429;
+
   outline-offset: -10px;
   box-shadow: 0 0 32px rgba(230, 36, 41, 0.25);
+  margin-bottom: 10px;
+  justify-content: center;
 }
 
-.character-description {
-  flex: 1;
+/* Description du personnage */
+.characterdetail-description {
   font-size: 18px;
   line-height: 30px;
   color: #cccccc;
   background-color: transparent;
   padding-right: 20px;
+  text-align: center;
 }
 
-.character-description p::first-letter {
+/* Essaye de style : 1ere lettre en style distinct */
+.characterdetail-description p::first-letter {
   font-size: 28px;
   color: #e62429;
   font-weight: bold;
 }
 
+/* Section liste des comics */
 .character-comics-list {
   margin-top: 48px;
   border-top: 1px solid #333333;
   padding-top: 32px;
 }
 
+/* Titre de la section comics */
 .character-comics-list h3 {
   color: #e62429;
   font-size: 22px;
@@ -70,13 +83,19 @@
   text-transform: uppercase;
 }
 
-.character-comics-list ul {
-  padding-left: 24px;
-  list-style-type: disc;
-  color: #bbbbbb;
+/* Style des images des comics */
+.comic-slide img {
+  width: 100%;
+  height: 200px; /* Hauteur fixe */
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(230, 36, 41, 0.6);
 }
 
-.character-comics-list li {
-  margin-bottom: 8px;
-  font-size: 16px;
+/* Titre des comics sous chaque image */
+.comic-slide p {
+  margin-top: 8px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
 }

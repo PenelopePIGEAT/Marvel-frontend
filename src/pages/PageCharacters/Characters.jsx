@@ -20,6 +20,36 @@ const Characters = () => {
   const [searchTerm, setSearchTerm] = useState(initialSearch);
   const [inputValue, setInputValue] = useState(initialSearch);
 
+  // verification login avant //
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const token = localStorage.getItem("token");
+      console.log("Token récupéré avant requête favorites :", token);
+
+      if (!token) {
+        console.error("Utilisateur non connecté : PAS DE TOKEN !!!");
+        return;
+      }
+
+      try {
+        const response = await axios.get("http://localhost:3000/favorite", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setFavorites(response.data);
+
+        console.log("Favoris reçus depuis le back:", response.data);
+      } catch (error) {
+        console.error("Erreur chargement favoris :", error);
+      }
+    };
+
+    fetchFavorites();
+  }, []);
+
+  // Barre de recherche de la muerte que j'ai abandonner //
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       setSearchTerm(inputValue);
@@ -32,6 +62,7 @@ const Characters = () => {
     return () => clearTimeout(delayDebounce);
   }, [inputValue]);
 
+  // Affichage des cards characters //
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,18 +73,64 @@ const Characters = () => {
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
-        console.error("Erreur lors du fetch :", error);
+        console.error(
+          "Erreur chargement des characters depuis le back :",
+          error
+        );
       }
     };
 
     fetchData();
   }, [page, searchTerm]);
 
-  const handleFavorite = (id) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
-    );
+  // Gestion des favoris //
+
+  const handleFavorite = async (marvelId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const existing = favorites.find(
+        (favorite) =>
+          favorite.marvelId === marvelId && favorite.type === "character"
+      );
+
+      if (existing) {
+        // Supprimer
+        await axios.delete(`http://localhost:3000/favorite/${existing._id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setFavorites((prev) => prev.filter((f) => f._id !== existing._id)); // prev ? f ?
+      } else {
+        // Ajouter
+        const character = data.results.find(
+          (character) => character._id === marvelId
+        );
+        const thumbnail = `${character.thumbnail.path}.${character.thumbnail.extension}`;
+        const description = character.description || "";
+
+        const response = await axios.post(
+          "http://localhost:3000/favorite",
+          {
+            marvelId,
+            type: "character",
+            name: character.name,
+            thumbnail,
+            description,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        setFavorites((prev) => [...prev, response.data]); // ajout du favoris dans le state //
+      }
+    } catch (error) {
+      console.error("Erreur mise en favoris :", error);
+    }
   };
+
+  // pagination //
 
   const changePage = (newPage) => {
     const newParams = new URLSearchParams(location.search);
@@ -61,6 +138,8 @@ const Characters = () => {
     newParams.set("search", searchTerm);
     navigate(`${location.pathname}?${newParams.toString()}`);
   };
+
+  // ce que retourn la page //
 
   return isLoading ? (
     <p>Jarvis in action, Sir !</p>
@@ -82,7 +161,10 @@ const Characters = () => {
             name={character.name}
             description={character.description}
             thumbnail={character.thumbnail}
-            isFavorite={favorites.includes(character._id)}
+            isFavorite={favorites.some(
+              (fav) =>
+                fav.marvelId === character._id && fav.type === "character"
+            )}
             handleFavorite={handleFavorite}
           />
         ))}

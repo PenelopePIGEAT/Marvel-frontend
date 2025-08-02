@@ -7,18 +7,23 @@ import "./CharacterInComics.css";
 import "./CharacterInComics.css";
 
 const CharacterInComics = () => {
+  // Récupération de l'ID du personnage dans l'URL via React Router
   const { characterId } = useParams();
+  // States pour stocker les données du personnage et des comics
   const [comics, setComics] = useState([]);
   const [characterThumbnail, setCharacterThumbnail] = useState(null);
   const [characterName, setCharacterName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  // lancerla requête API au chargement ou lorsque l'ID change
   useEffect(() => {
     const fetchComics = async () => {
       try {
+        // Requête GET vers le backend pour récupérer les comics d'un personnage
         const response = await axios.get(
           `http://localhost:3000/comics/${characterId}`
         );
+        // Mise à jour des états avec les données reçues
         setComics(response.data.comics);
         setCharacterThumbnail(response.data.thumbnail);
         setCharacterName(response.data.name);
@@ -29,25 +34,18 @@ const CharacterInComics = () => {
       }
     };
 
-    fetchComics();
-  }, [characterId]);
+    fetchComics(); // Appel de la fonction dès que le render
+  }, [characterId]); // déclenche si l'ID change
 
   if (isLoading) return <p>Chargement...</p>;
 
+  // Configuration du slider (carousel) avec des options de responsive design
   const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
+    dots: true, // Affiche les petits points sous le slider
+    infinite: true, // Boucle infinie
+    speed: 500, // Vitesse d'animation
+    slidesToShow: 1, // Nombre de slides visibles
+    slidesToScroll: 1, // Combien de slides à faire défiler à la fois
   };
 
   return (

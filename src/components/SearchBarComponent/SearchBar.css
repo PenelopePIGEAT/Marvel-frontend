@@ -1,10 +1,10 @@
 .searchbar {
   width: 100%;
   max-width: 300px;
-  padding: 0.3rem 0.3rem;
-  font-size: 0.8rem;
+  padding: 5px 5px;
+  font-size: 13px;
   border: none;
-  border-radius: 999px;
+  border-radius: 999px; /*arrondi bacille*/
   background-color: #1a1a1a;
   color: #e62429;
   box-shadow: 0 0 5px rgba(230, 36, 41, 0.5);

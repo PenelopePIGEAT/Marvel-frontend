@@ -10,16 +10,22 @@ const CharacterCard = ({
   isFavorite,
   handleFavorite,
 }) => {
+  // Initialisation du navigate pour changer de route
   const navigate = useNavigate();
 
+  // Fonction pour aller à la page détail du personnage au clic
   const goToDetail = () => {
     navigate(`/character/${id}`);
   };
 
+  // Fonction pour aller à la page comics, en stoppant la propagation
   const goToComics = (event) => {
     event.stopPropagation();
     navigate(`/comics/${id}`);
   };
+
+  // Gestion du clic sur le bouton favoris : stoppe propagation
+  // puis lance la fonction passée en props pour toggle favori
 
   const handleFavoriteClick = (event) => {
     event.stopPropagation();

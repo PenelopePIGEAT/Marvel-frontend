@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import "./Modal.css";
 import ironmanImg from "../../img/ironman.png";
 
 const Modal = ({ show, onClose, setUser }) => {
+  // sate pour gérer quel onglet est actif : login ou signup
   const [tab, setTab] = useState("login");
+  // state pour stocker les valeurs des champs du formulaire
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  // pour afficher un message d'erreur si besoin
   const [error, setError] = useState("");
+  // message de bienvenue après log
   const [welcomeMessage, setWelcomeMessage] = useState("");
 
+  // écoute l'appui sur la touche Echap pour fermer la modale
   useEffect(() => {
     const handleEsc = (event) => {
       if (event.key === "Escape") onClose();
@@ -20,6 +25,7 @@ const Modal = ({ show, onClose, setUser }) => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [show, onClose]);
 
+  // reset des champs et erreurs à chaque changement d'onglet
   useEffect(() => {
     setEmail("");
     setPassword("");
@@ -27,19 +33,30 @@ const Modal = ({ show, onClose, setUser }) => {
     setError("");
   }, [tab]);
 
+  // gestion du log utilisateur
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
     try {
-      const res = await axios.post("http://localhost:3000/login", {
+      // envoie des données au serveur
+      const response = await axios.post("http://localhost:3000/login", {
         email,
         password,
       });
-      console.log("Login success:", res.data);
+      // log de debug et de galères
+      console.log("Login response date:", response.data);
+      console.log("Login success:", response.data);
+      // sauvegarde du token au localstorage
+      localStorage.setItem("token", response.data.user.token);
+      console.log("Token saved in LocalStorage:", response.data.user.token);
+
+      //Welcome message
       setWelcomeMessage(
-        `Bienvenue ${res.data.user.username} dans l'univers Marvel`
+        `Bienvenue ${response.data.user.username} dans l'univers Marvel`
       );
-      setUser(res.data.user);
+      //met à jour le user
+      setUser(response.data.user);
+      //fermeture auto ! 2sec = 2000
       setTimeout(() => {
         setWelcomeMessage("");
         onClose();
@@ -49,20 +66,27 @@ const Modal = ({ show, onClose, setUser }) => {
     }
   };
 
+  // gestion du signup utilisateur
   const handleSignup = async (event) => {
     event.preventDefault();
     setError("");
     try {
-      const res = await axios.post("http://localhost:3000/signup", {
+      const response = await axios.post("http://localhost:3000/signup", {
         username,
         email,
         password,
       });
-      console.log("Signup success:", res.data);
+
+      console.log("Signup success:", response.data);
+      // stokage en localstorage
+      localStorage.setItem("token", response.data.user.token);
+      //welcome message again
       setWelcomeMessage(
-        `Bienvenue ${res.data.user.username} dans l'univers Marvel`
+        `Bienvenue ${response.data.user.username} dans l'univers Marvel`
       );
-      setUser(res.data.user);
+      //mise à jour user
+      setUser(response.data.user);
+      //fermeture
       setTimeout(() => {
         setWelcomeMessage("");
         onClose();

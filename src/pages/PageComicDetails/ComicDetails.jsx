@@ -4,10 +4,13 @@ import axios from "axios";
 import "./ComicDetails.css";
 
 const ComicDetail = () => {
+  // Récupération de l'ID du comic depuis l'URL
   const { id } = useParams();
+  // States pour stocker les données du comic et les éventuelles erreurs
   const [comic, setComic] = useState(null);
   const [error, setError] = useState(null);
 
+  // useEffect déclenché au render
   useEffect(() => {
     const fetchComic = async () => {
       try {
@@ -19,8 +22,8 @@ const ComicDetail = () => {
       }
     };
 
-    fetchComic();
-  }, [id]);
+    fetchComic(); //appel fonction
+  }, [id]); //condition de relance
 
   if (error) return <p>{error}</p>;
   if (!comic) return <p>Chargement...</p>;
