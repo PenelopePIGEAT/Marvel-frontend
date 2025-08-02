@@ -1,0 +1,111 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: 320px;
+  max-width: 90vw;
+  max-height: 80vh;
+  background: #111;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 0 20px #00f6ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1001;
+  overflow-y: auto;
+}
+
+.modal-hero {
+  width: 280px;
+  height: auto;
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+.modal-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.modal-tabs button {
+  flex: 1;
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.modal-tabs button.active,
+.modal-tabs button:hover {
+  color: #00f6ff;
+  border-bottom: 2px solid #00f6ff;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-form input {
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.modal-form input:focus {
+  box-shadow: 0 0 8px #00f6ff;
+}
+
+.modal-form button {
+  background: #00f6ff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-form button:hover {
+  background: #00f6ff;
+}
+
+.modal-error {
+  color: #e62429;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.modal-welcome {
+  margin-top: 20px;
+  color: #00f6ff;
+  font-weight: bold;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+p {
+  margin-top: 20px;
+  font-size: 22px;
+  color: #e62429;
+}

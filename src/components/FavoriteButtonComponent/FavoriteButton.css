@@ -1,0 +1,26 @@
+.favorite-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  border: 2px solid #ffd600;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #ffd600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 6px rgba(255, 214, 0, 0.5);
+}
+
+.favorite-button:hover {
+  background-color: #ffd600;
+  color: #1a1a1a;
+  box-shadow: 0 0 12px rgba(255, 214, 0, 0.9), 0 0 3px rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.favorite-button.active {
+  background-color: #ffd600;
+  color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(255, 214, 0, 0.8), 0 0 5px #fff;
+}

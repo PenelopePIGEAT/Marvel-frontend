@@ -1,0 +1,55 @@
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  border-bottom: 1px solid #222;
+  background-color: #000;
+}
+
+.marvel-logo {
+  height: 60px;
+}
+
+.logo-link:hover {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  opacity: 0.5;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.nav a:hover {
+  color: #00f6ff;
+  text-shadow: 0 0 8px #00f6ff;
+}
+
+.login-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 1.5rem;
+  display: flex;
+  align-items: center;
+  outline: none;
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-button:hover {
+  cursor: pointer;
+}

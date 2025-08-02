@@ -1,0 +1,57 @@
+.comic-detail-container {
+  max-width: 850px;
+  margin: 50px auto;
+  padding: 30px 20px;
+  color: #222;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.comic-title {
+  font-size: 44px;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1.2px;
+  border-bottom: 2px solid #bdc3c7;
+  padding-bottom: 10px;
+}
+
+.comic-detail-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.comic-img {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+.comic-img:hover {
+  transform: scale(1.03);
+}
+
+.comic-info {
+  flex: 1 1 400px;
+  color: #444;
+  font-size: 18px;
+  line-height: 1.6;
+  background: #f9f9f9;
+  padding: 24px 28px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  user-select: text;
+  min-width: 280px;
+}
+
+.comic-description {
+  margin: 0;
+  white-space: pre-line;
+}

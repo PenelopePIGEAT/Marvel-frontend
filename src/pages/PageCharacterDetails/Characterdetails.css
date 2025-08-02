@@ -1,0 +1,82 @@
+.character-detail-container {
+  background-color: #0d0d0d;
+  color: #ffffff;
+  padding: 48px 60px;
+  max-width: 100%;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.character-name {
+  font-size: 42px;
+  color: #e62429;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: left;
+  border-left: 5px solid #e62429;
+  padding-left: 16px;
+}
+
+.character-detail-content {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.character-image-wrapper {
+  flex: 0 0 340px;
+}
+
+.character-img {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  object-fit: cover;
+  border: none;
+  outline: 3px solid #e62429;
+  outline-offset: -10px;
+  box-shadow: 0 0 32px rgba(230, 36, 41, 0.25);
+}
+
+.character-description {
+  flex: 1;
+  font-size: 18px;
+  line-height: 30px;
+  color: #cccccc;
+  background-color: transparent;
+  padding-right: 20px;
+}
+
+.character-description p::first-letter {
+  font-size: 28px;
+  color: #e62429;
+  font-weight: bold;
+}
+
+.character-comics-list {
+  margin-top: 48px;
+  border-top: 1px solid #333333;
+  padding-top: 32px;
+}
+
+.character-comics-list h3 {
+  color: #e62429;
+  font-size: 22px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.character-comics-list ul {
+  padding-left: 24px;
+  list-style-type: disc;
+  color: #bbbbbb;
+}
+
+.character-comics-list li {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
