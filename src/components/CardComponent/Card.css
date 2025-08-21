@@ -4,12 +4,12 @@
   padding: 16px;
   border-radius: 12px;
   color: white;
-  box-shadow: 0 0 10px #e62429; /* ombre rouge floue autour */
+  box-shadow: 0 0 10px #e62429;
   margin: 20px;
-  transition: transform 0.3s ease; /* transition pour hover */
+  transition: transform 0.3s ease;
   width: 340px;
   height: 360px;
-  position: relative; /* pour positionner bouton comics absolu */
+  position: relative;
 }
 
 /* Curseur au survol */
@@ -42,7 +42,7 @@
   margin-top: 4px;
 
   display: -webkit-box; /* conteneur flex pour clamp */
-  -webkit-line-clamp: 1; /* limite à 1 ligne, ça fonctionne malgré le vague*/
+  -webkit-line-clamp: 1; /* limite à 1 ligne, ça fonctionne malgré la vague*/
   -webkit-box-orient: vertical; /* orientation verticale */
   overflow: hidden; /* cache le texte dépassant */
 }
@@ -56,7 +56,7 @@
 /* Classe cliquable au hover */
 .clickable:hover {
   color: #e62429;
-  transform: scale(1.01); /* zoom très léger */
+  transform: scale(1.01);
 }
 
 /* Bouton Comicsgraphie*/

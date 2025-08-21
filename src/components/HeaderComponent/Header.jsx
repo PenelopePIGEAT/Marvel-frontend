@@ -3,41 +3,28 @@ import React, { useState } from "react";
 import "./Header.css";
 import logo from "../../img/logo.png";
 import JarvisIcon from "../JarvisIcon.jsx";
-import Modal from "../ModalComponent/Modal.jsx";
-import GoodbyeModal from "../ModalComponent/GoodbyeModal.jsx";
 
-const Header = () => {
-  const navigate = useNavigate(); //pour changer de page
-  const location = useLocation(); //pour savoir sur quelle route
+const Header = ({ user, setUser }) => {
+  const navigate = useNavigate(); // pour changer de page
+  const location = useLocation(); // pour savoir sur quelle route
 
-  // Affiche la barre de recherche seulement sur /characters et /comics mais à revenir dessus puisque finalement je fais une search par page
   const showSearchBar = ["/characters", "/comics"].includes(location.pathname);
-  // Récupère la valeur "search" dans l'url
   const params = new URLSearchParams(location.search);
   const searchTerm = params.get("search") || "";
 
-  // State pour stocker l'utilisateur connecté (null si pas connecté)
-  const [user, setUser] = useState(null);
-  // State pour ouvrir/fermer la modale de login/signup
-  const [modalOpen, setModalOpen] = useState(false);
-  // State pour ouvrir/fermer la modale d’au revoir (déconnexion)
-  const [goodbyeOpen, setGoodbyeOpen] = useState(false);
   // State pour gérer l’effet hover sur le bouton Jarvis
   const [isHovering, setIsHovering] = useState(false);
 
-  //Clic sur  jarvis si connecté, ouvre modale déconnexion, sinon modale login/signup
+  // Clic sur Jarvis : si connecté rien ne change (ou on peut ouvrir modal déconnexion),
+  // sinon on navigue vers la page /login
   const handleJarvisClick = () => {
     if (user) {
-      setGoodbyeOpen(true);
+      // Tu peux garder ta logique de déconnexion/modale d’au revoir ici si tu veux
+      // par exemple ouvrir GoodbyeModal
+      console.log("Utilisateur déjà connecté");
     } else {
-      setModalOpen(true);
+      navigate("/auth"); // navigation vers la page login/signup
     }
-  };
-
-  // Ferme la modale d’au revoir et déconnecte l’utilisateur
-  const handleGoodbyeClose = () => {
-    setGoodbyeOpen(false);
-    setUser(null);
   };
 
   // Met à jour la query "search" dans l’URL pour la recherche
@@ -69,17 +56,6 @@ const Header = () => {
           {user ? `Déconnexion (${user.username})` : "Jarvis"}
         </button>
       </nav>
-
-      <Modal
-        show={modalOpen}
-        onClose={() => setModalOpen(false)}
-        setUser={setUser}
-      />
-      <GoodbyeModal
-        show={goodbyeOpen}
-        onClose={handleGoodbyeClose}
-        username={user?.username}
-      />
     </header>
   );
 };

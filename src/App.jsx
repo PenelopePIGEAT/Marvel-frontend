@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import Home from "./pages/PageHome/Home";
 import Header from "./components/HeaderComponent/Header";
-import Modal from "./components/ModalComponent/Modal";
 import Footer from "./components/FooterComponent/Footer";
 import Characters from "./pages/PageCharacters/Characters";
 import CharacterInComics from "./pages/PageCharacterInComics/CharacterInComics";
@@ -14,20 +13,17 @@ import Comics from "./pages/PageComics/Comics";
 import CharacterDetail from "./pages/PageCharacterDetails/Characterdetails";
 import ComicDetail from "./pages/PageComicDetails/ComicDetails";
 import Favorites from "./pages/PageFavorite/Favorite";
+import AuthPage from "./pages/PageAuth/AuthPage";
 
 function App() {
+  const [user, setUser] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [hoverIcon, setHoverIcon] = useState(false);
 
   return (
     <Router>
       <div className="app-container">
-        <Header
-          onLoginClick={() => setModalOpen(true)}
-          onIconHover={setHoverIcon}
-          isHovering={hoverIcon}
-        />
-        <Modal show={modalOpen} onClose={() => setModalOpen(false)} />
+        <Header user={user} setUser={setUser} />
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -40,6 +36,7 @@ function App() {
             <Route path="/comics" element={<Comics />} />
             <Route path="/comic/:id" element={<ComicDetail />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/auth" element={<AuthPage setUser={setUser} />} />
           </Routes>
         </main>
         <Footer />

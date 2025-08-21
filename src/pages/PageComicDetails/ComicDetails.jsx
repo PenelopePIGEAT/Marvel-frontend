@@ -1,32 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import useComicDetail from "../../hook/useComicDetail.jsx";
 import "./ComicDetails.css";
 
 const ComicDetail = () => {
-  // Récupération de l'ID du comic depuis l'URL
   const { id } = useParams();
-  // States pour stocker les données du comic et les éventuelles erreurs
-  const [comic, setComic] = useState(null);
-  const [error, setError] = useState(null);
+  const { comic, isLoading, error } = useComicDetail(id);
 
-  // useEffect déclenché au render
-  useEffect(() => {
-    const fetchComic = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/comic/${id}`);
-        setComic(response.data);
-      } catch (err) {
-        setError("Erreur lors du chargement du comic.");
-        console.error(err);
-      }
-    };
-
-    fetchComic(); //appel fonction
-  }, [id]); //condition de relance
-
+  if (isLoading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
-  if (!comic) return <p>Chargement...</p>;
+  if (!comic) return <p>Comic introuvable.</p>;
 
   return (
     <div className="comic-detail-container">

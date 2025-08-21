@@ -1,0 +1,128 @@
+/* Conteneur principal */
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 60px 20px;
+  min-height: 100vh;
+  background: #111;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+}
+
+/* Illustration Iron Man */
+.auth-hero {
+  width: 280px;
+  height: auto;
+  margin-bottom: 32px;
+  display: block;
+}
+
+/* Conteneur formulaire */
+.auth-container {
+  width: 100%;
+  max-width: 500px;
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 10px;
+}
+
+/* Titre */
+.auth-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Onglets Login/Signup espacés */
+.auth-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.auth-tabs button {
+  flex: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 12px 24px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.auth-tabs button.active,
+.auth-tabs button:hover {
+  color: #00f6ff;
+  border-bottom: 2px solid #00f6ff;
+}
+
+/* Formulaire */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #222;
+  color: #fff;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.auth-form input:focus {
+  border-color: #00f6ff;
+  box-shadow: 0 0 8px #00f6ff;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  background: #00f6ff;
+  color: #000;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+/* Messages */
+.auth-error {
+  color: #e62429;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-welcome {
+  color: #00f6ff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Paragraphes */
+p {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #e62429;
+  text-align: center;
+}

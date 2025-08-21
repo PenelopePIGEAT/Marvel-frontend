@@ -1,156 +1,52 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import CharacterCard from "../../components/CardComponent/CharacterCard";
-import "./Characters.css";
 import SearchBarCharacter from "../../components/SearchBarComponent/SearchBarCharacter.jsx";
+import CharacterCard from "../../components/CardComponent/CharacterCard.jsx";
+import useFavorites from "../../hook/useFavorites.jsx";
+import useCharacters from "../../hook/useCharacters.jsx";
+import "./Characters.css";
 
 const Characters = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
   const params = new URLSearchParams(location.search);
-  const page = parseInt(params.get("page") || "1", 10);
+  const initialPage = parseInt(params.get("page") || "1", 10);
   const initialSearch = params.get("search") || "";
 
-  const [data, setData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [favorites, setFavorites] = useState([]);
-
-  const [searchTerm, setSearchTerm] = useState(initialSearch);
   const [inputValue, setInputValue] = useState(initialSearch);
+  const [searchTerm, setSearchTerm] = useState(initialSearch);
+  const [page, setPage] = useState(initialPage);
 
-  // verification login avant //
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      const token = localStorage.getItem("token");
-      console.log("Token récupéré avant requête favorites :", token);
+  const { data, isLoading } = useCharacters(page, searchTerm);
+  const { favoritesList, handleFavorite } = useFavorites();
 
-      if (!token) {
-        console.error("Utilisateur non connecté : PAS DE TOKEN !!!");
-        return;
-      }
-
-      try {
-        const response = await axios.get("http://localhost:3000/favorite", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setFavorites(response.data);
-
-        console.log("Favoris reçus depuis le back:", response.data);
-      } catch (error) {
-        console.error("Erreur chargement favoris :", error);
-      }
-    };
-
-    fetchFavorites();
-  }, []);
-
-  // Barre de recherche de la muerte que j'ai abandonner //
-  useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      setSearchTerm(inputValue);
-      const newParams = new URLSearchParams(location.search);
-      newParams.set("search", inputValue);
-      newParams.set("page", "1");
-      navigate(`${location.pathname}?${newParams.toString()}`);
-    }, 500);
-
-    return () => clearTimeout(delayDebounce);
-  }, [inputValue]);
-
-  // Affichage des cards characters //
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(
-          `http://localhost:3000/characters?page=${page}&search=${searchTerm}`
-        );
-        setData(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(
-          "Erreur chargement des characters depuis le back :",
-          error
-        );
-      }
-    };
-
-    fetchData();
-  }, [page, searchTerm]);
-
-  // Gestion des favoris //
-
-  const handleFavorite = async (marvelId) => {
-    try {
-      const token = localStorage.getItem("token");
-
-      const existing = favorites.find(
-        (favorite) =>
-          favorite.marvelId === marvelId && favorite.type === "character"
-      );
-
-      if (existing) {
-        // Supprimer
-        await axios.delete(`http://localhost:3000/favorite/${existing._id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        setFavorites((prev) => prev.filter((f) => f._id !== existing._id)); // prev ? f ?
-      } else {
-        // Ajouter
-        const character = data.results.find(
-          (character) => character._id === marvelId
-        );
-        const thumbnail = `${character.thumbnail.path}.${character.thumbnail.extension}`;
-        const description = character.description || "";
-
-        const response = await axios.post(
-          "http://localhost:3000/favorite",
-          {
-            marvelId,
-            type: "character",
-            name: character.name,
-            thumbnail,
-            description,
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-
-        setFavorites((prev) => [...prev, response.data]); // ajout du favoris dans le state //
-      }
-    } catch (error) {
-      console.error("Erreur mise en favoris :", error);
-    }
+  const handleSearchSubmit = (value) => {
+    setSearchTerm(value);
+    setPage(1);
+    const newParams = new URLSearchParams();
+    newParams.set("search", value);
+    newParams.set("page", "1");
+    navigate(`${location.pathname}?${newParams.toString()}`, { replace: true });
   };
-
-  // pagination //
 
   const changePage = (newPage) => {
-    const newParams = new URLSearchParams(location.search);
-    newParams.set("page", newPage);
+    setPage(newPage);
+    const newParams = new URLSearchParams();
     newParams.set("search", searchTerm);
-    navigate(`${location.pathname}?${newParams.toString()}`);
+    newParams.set("page", newPage);
+    navigate(`${location.pathname}?${newParams.toString()}`, { replace: true });
   };
 
-  // ce que retourn la page //
+  if (isLoading) return <p>Chargement des personnages en cours...</p>;
 
-  return isLoading ? (
-    <p>Jarvis in action, Sir !</p>
-  ) : (
+  return (
     <main>
       <h1>Personnages de l'univers Marvel</h1>
 
       <SearchBarCharacter
-        className="searchbar"
-        searchTerm={inputValue}
-        onSearchChange={setInputValue}
+        value={inputValue}
+        onChange={setInputValue}
+        onSubmit={handleSearchSubmit}
       />
 
       <section className="articles-container">
@@ -161,11 +57,11 @@ const Characters = () => {
             name={character.name}
             description={character.description}
             thumbnail={character.thumbnail}
-            isFavorite={favorites.some(
+            isFavorite={favoritesList.some(
               (fav) =>
                 fav.marvelId === character._id && fav.type === "character"
             )}
-            handleFavorite={handleFavorite}
+            handleFavorite={() => handleFavorite(character._id, data)}
           />
         ))}
       </section>

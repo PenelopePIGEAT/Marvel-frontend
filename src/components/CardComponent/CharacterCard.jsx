@@ -14,7 +14,8 @@ const CharacterCard = ({
   const navigate = useNavigate();
 
   // Fonction pour aller à la page détail du personnage au clic
-  const goToDetail = () => {
+  const goToDetail = (event) => {
+    event.stopPropagation();
     navigate(`/character/${id}`);
   };
 

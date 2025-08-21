@@ -9,11 +9,26 @@ const ComicCard = ({
   thumbnail,
   isFavorite,
   handleFavorite,
+  isLoggedIn,
+  openAskToLog,
 }) => {
   const navigate = useNavigate();
 
   const goToDetail = () => {
     navigate(`/comic/${id}`);
+  };
+
+  const handleFavoriteClick = (event) => {
+    event.stopPropagation();
+    console.log("Favorite clicked. Logged in?", isLoggedIn);
+
+    if (!isLoggedIn) {
+      console.log("User not logged in, opening modal");
+      openAskToLog();
+      return;
+    }
+
+    handleFavorite(id);
   };
 
   return (
@@ -30,10 +45,7 @@ const ComicCard = ({
       <button className="comics-button" onClick={goToDetail}>
         En savoir plus
       </button>
-      <FavoriteButton
-        isFavorite={isFavorite}
-        onClick={() => handleFavorite(id)}
-      />
+      <FavoriteButton isFavorite={isFavorite} onClick={handleFavoriteClick} />
     </article>
   );
 };

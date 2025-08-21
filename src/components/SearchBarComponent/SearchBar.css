@@ -1,23 +1,35 @@
-.searchbar {
+.search-bar {
+  position: relative;
+  width: 300px;
+  margin: 20px auto;
+}
+
+.search-bar input {
   width: 100%;
-  max-width: 300px;
-  padding: 5px 5px;
-  font-size: 13px;
-  border: none;
-  border-radius: 999px; /*arrondi bacille*/
-  background-color: #1a1a1a;
-  color: #e62429;
-  box-shadow: 0 0 5px rgba(230, 36, 41, 0.5);
-  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-.searchbar::placeholder {
-  color: #ff6666;
-  font-style: italic;
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1000;
 }
 
-.searchbar:focus {
-  outline: none;
-  box-shadow: 0 0 8px rgba(230, 36, 41, 0.8);
-  background-color: #111;
+.suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
 }
