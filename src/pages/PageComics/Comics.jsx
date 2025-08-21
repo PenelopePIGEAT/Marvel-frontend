@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ComicCard from "../../components/CardComponent/ComicCard.jsx";
-import SearchBarComic from "../../components/SearchBarComponent/SearchBarCharacter.jsx";
+//import SearchBarComic from "../../components/SearchBarComponent/SearchBarCharacter.jsx";
 import useFavorites from "../../hook/useFavorites.jsx";
 import useComics from "../../hook/useComics.jsx";
 import "./Comics.css";
@@ -64,10 +64,7 @@ const Comics = () => {
   return (
     <main>
       <h1>Comics Marvel</h1>
-
-      {/* Barre de recherche */}
-      <SearchBarComic searchTerm={inputValue} onSearchChange={setInputValue} />
-
+      //SearchBarComic//
       {/* Liste des comics */}
       <section className="articles-container">
         {data.results.map((comic) => (
@@ -87,7 +84,6 @@ const Comics = () => {
           />
         ))}
       </section>
-
       {/* Pagination */}
       <div className="pagination">
         <button onClick={() => changePage(page - 1)} disabled={page === 1}>

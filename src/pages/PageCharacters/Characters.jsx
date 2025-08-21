@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import SearchBarCharacter from "../../components/SearchBarComponent/SearchBarCharacter.jsx";
+//import SearchBarCharacter from "../../components/SearchBarComponent/SearchBarCharacter.jsx";
 import CharacterCard from "../../components/CardComponent/CharacterCard.jsx";
 import useFavorites from "../../hook/useFavorites.jsx";
 import useCharacters from "../../hook/useCharacters.jsx";
@@ -42,13 +42,7 @@ const Characters = () => {
   return (
     <main>
       <h1>Personnages de l'univers Marvel</h1>
-
-      <SearchBarCharacter
-        value={inputValue}
-        onChange={setInputValue}
-        onSubmit={handleSearchSubmit}
-      />
-
+      //SearchBarCharacter//
       <section className="articles-container">
         {data.results.map((character) => (
           <CharacterCard
@@ -65,7 +59,6 @@ const Characters = () => {
           />
         ))}
       </section>
-
       <div className="pagination">
         <button onClick={() => changePage(page - 1)} disabled={page === 1}>
           ←
